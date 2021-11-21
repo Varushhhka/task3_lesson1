@@ -1,15 +1,16 @@
 import sys
 from random import choices
 
-from PyQt5 import uic
 from PyQt5.QtGui import QPainter, QColor
 from PyQt5.QtWidgets import QApplication, QWidget
 
+from Ui import Ui_Yellow_rounds
 
-class Yellow_rounds(QWidget):
+
+class Yellow_rounds(QWidget, Ui_Yellow_rounds):
     def __init__(self):
         super().__init__()
-        uic.loadUi('Ui.ui', self)
+        self.setupUi(self)
         self.do_paint = False
         self.btn_paint.clicked.connect(self.paint)
 
@@ -25,7 +26,7 @@ class Yellow_rounds(QWidget):
         self.repaint()
 
     def draw_round(self, qp):
-        qp.setPen(QColor(255, 255, 0))
+        qp.setPen(QColor(*choices(range(0, 255), k=3)))
         a, b = choices(range(1, 200), k=2)
         qp.drawEllipse(a, a, b, b)
 
